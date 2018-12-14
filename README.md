@@ -2,25 +2,28 @@
 
 Getting fed up of polluting my laptops with every database, queue and datastore
 on the internet with `brew`, website downloads or `macports`... I've put them
-all in one Docker Compose file and given them reasonable defaults.
+all in one Docker Compose file, given them reasonable defaults and wherever
+possible configured mounted volumes for persistence.
 
 ## Pre-requisites
 Install Docker: https://docs.docker.com/install/
 
 ## Components
-Below are the various components that run
+Below are the various components that run and useful information about them.
 
 ### MySQL
 A Percona 5.7 container with: `utf8mb4` as default, `sql_mode` a little less
 restrictive: `NO_ENGINE_SUBSTITUTION` and slow query logging.
 
 Default user: `root` password: `pa55w0rd`
+
 _Don't use root user for applications in production_
 
 ### RabbitMQ
 A rabbitmq server with management interface.
 
 Default user: `guest` password: `guest`
+
 _Always remove the guest user in production and use application specific users_
 
 ### Redis
