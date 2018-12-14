@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  mysql:
+    image: percona:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pa55w0rd
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/logs:/var/log/mysql
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/server.cnf:/etc/my.cnf.d/server.cnf:ro
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/data:/data
+    command: redis-server --appendonly yes
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./rabbitmq/logs:/data/log
+      - ./rabbitmq/data:/data/mnesia

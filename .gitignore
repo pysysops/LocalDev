@@ -1,0 +1,13 @@
+*.log
+
+# Local app data persistence
+mysql/data/*
+mysql/logs/*
+!mysql/data/.gitkeep
+!mysql/logs/.gitkeep
+
+rabbitmq/data/*
+rabbitmq/logs/*
+!rabbitmq/data/.gitkeep
+!rabbitmq/logs/.gitkeep
+
