@@ -17,6 +17,9 @@ restrictive: `NO_ENGINE_SUBSTITUTION` and slow query logging.
 
 Default user: `root` password: `pa55w0rd`
 
+#### Web UI
+There is an instance of the MySQL web UI available at: http://localhost:13306
+
 _Don't use root user for applications in production_
 
 ### RabbitMQ
@@ -26,10 +29,16 @@ Default user: `guest` password: `guest`
 
 _Always remove the guest user in production and use application specific users_
 
+#### Web UI
+The RabbitMQ Management UI is at: http://localhost:15672
+
 ### Redis
 A redis container with `--appendonly yes`.
 
 _Consider enabling and using auth in production or listening on 127.0.0.1 only_
+
+#### Web UI
+There is a container running Redis Commander at: http://localhost:16379
 
 ## Usage
 Clone this repo somewhere and open a terminal inside it.

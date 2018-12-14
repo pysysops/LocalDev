@@ -1,6 +1,13 @@
 version: '3.1'
 
 services:
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    ports:
+      - 13306:8080
   mysql:
     image: percona:5.7
     restart: always
@@ -12,18 +19,27 @@ services:
       - ./mysql/logs:/var/log/mysql
       - ./mysql/data:/var/lib/mysql
       - ./mysql/server.cnf:/etc/my.cnf.d/server.cnf:ro
-  redis:
-    image: redis:alpine
-    ports:
-      - 6379:6379
-    volumes:
-      - ./redis/data:/data
-    command: redis-server --appendonly yes
   rabbitmq:
     image: rabbitmq:management-alpine
+    restart: always
     ports:
       - 5672:5672
       - 15672:15672
     volumes:
       - ./rabbitmq/logs:/data/log
       - ./rabbitmq/data:/data/mnesia
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/data:/data
+    command: redis-server --appendonly yes
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      REDIS_HOSTS: redis
+    ports:
+      - 16379:8081
