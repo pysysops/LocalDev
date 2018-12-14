@@ -54,7 +54,7 @@ as above, add the `-d` flag to run it in the background:
 docker-compose up mysql -d
 ```
 
-### Stop everything
+### Stop everything
 To stop all components and cleanup the containers and networks: 
 ```
 docker-compose down
