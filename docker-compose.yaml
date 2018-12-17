@@ -19,6 +19,13 @@ services:
     environment:
       network.host: 0.0.0.0
       discovery.type: single-node
+      bootstrap.memory_lock: 'true'
+      xpack.security.enabled: 'false'
+      ES_JAVA_OPTS: -Xms256m -Xmx256m
+  kibana:
+    image: kibana:6.5.3
+    ports:
+      - 5601:5601
   mysql:
     image: percona:5.7
     restart: always
