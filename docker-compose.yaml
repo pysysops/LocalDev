@@ -8,6 +8,17 @@ services:
       ADMINER_DEFAULT_SERVER: mysql
     ports:
       - 13306:8080
+  elasticsearch:
+    image: elasticsearch:6.5.3
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs:/var/log/elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      network.host: 0.0.0.0
+      discovery.type: single-node
   mysql:
     image: percona:5.7
     restart: always
@@ -19,6 +30,22 @@ services:
       - ./mysql/logs:/var/log/mysql
       - ./mysql/data:/var/lib/mysql
       - ./mysql/server.cnf:/etc/my.cnf.d/server.cnf:ro
+  nats:
+    image: nats:linux
+    restart: always
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
+  natsboard:
+    image: urashidmalik/natsboard
+    ports:
+      - 18222:3000
+      - 3001:3001
+    environment:
+      NATS_MONITOR_URL: http://nats:8222
+    depends_on:
+      - nats
   rabbitmq:
     image: rabbitmq:management-alpine
     restart: always

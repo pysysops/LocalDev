@@ -11,7 +11,7 @@ Install Docker: https://docs.docker.com/install/
 ## Components
 Below are the various components that run and useful information about them.
 
-### MySQL
+### [MySQL](https://www.percona.com/doc/percona-server/LATEST/index.html)
 A Percona 5.7 container with: `utf8mb4` as default, `sql_mode` a little less
 restrictive: `NO_ENGINE_SUBSTITUTION` and slow query logging.
 
@@ -19,10 +19,20 @@ Default user: `root` password: `pa55w0rd`
 
 _Don't use root user for applications in production_
 
+<<<<<<< HEAD
 #### Web UI
 There is an instance of the MySQL web UI available at: http://localhost:13306
 
 ### RabbitMQ
+=======
+### [NATS](https://nats.io/documentation/)
+A nats server.
+
+#### Web UI
+There is an instance of natsboard running at: http://localhost:18222
+
+### [RabbitMQ](https://www.rabbitmq.com/documentation.html)
+>>>>>>> Add Elasticsearch / NATS
 A rabbitmq server with management interface.
 
 Default user: `guest` password: `guest`
@@ -32,7 +42,7 @@ _Always remove the guest user in production and use application specific users_
 #### Web UI
 The RabbitMQ Management UI is at: http://localhost:15672
 
-### Redis
+### [Redis](https://redis.io/documentation)
 A redis container with `--appendonly yes`.
 
 _Consider enabling and using auth in production or listening on 127.0.0.1 only_

@@ -11,3 +11,10 @@ rabbitmq/logs/*
 !rabbitmq/data/.gitkeep
 !rabbitmq/logs/.gitkeep
 
+elasticsearch/data/*
+elasticsearch/logs/*
+!elasticsearch/data/.gitkeep
+!elasticsearch/logs/.gitkeep
+
+redis/data/*
+!redis/data/.gitkeep
