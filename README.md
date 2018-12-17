@@ -27,12 +27,6 @@ Default user: `root` password: `pa55w0rd`
 
 _Don't use root user for applications in production_
 
-<<<<<<< HEAD
-#### Web UI
-There is an instance of the MySQL web UI available at: http://localhost:13306
-
-### RabbitMQ
-=======
 ### [NATS](https://nats.io/documentation/)
 A nats server.
 
@@ -40,7 +34,6 @@ A nats server.
 There is an instance of natsboard running at: http://localhost:18222
 
 ### [RabbitMQ](https://www.rabbitmq.com/documentation.html)
->>>>>>> Add Elasticsearch / NATS
 A rabbitmq server with management interface.
 
 Default user: `guest` password: `guest`
