@@ -6,7 +6,8 @@ all in one Docker Compose file, given them reasonable defaults and wherever
 possible configured mounted volumes for persistence.
 
 ## Pre-requisites
-Install Docker: https://docs.docker.com/install/
+* Install Docker: https://docs.docker.com/install/
+* Increase Docker's memory to 4GB https://docs.docker.com/docker-for-mac/#advanced
 
 ## Components
 Below are the various components that run and useful information about them.
@@ -14,7 +15,7 @@ Below are the various components that run and useful information about them.
 ### [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)
 Elasticsearch `6.5.3` running with `-Xms256m -Xmx256m` and `xpack.security.enabled=false` 
 
-#### Web UI
+#### Web UI
 Kibana is running on: http://localhost:5601
 
 _It's worth considering xpack security or basic auth in production_
