@@ -75,7 +75,7 @@ docker-compose up mysql
 
 as above, add the `-d` flag to run it in the background:
 ```
-docker-compose up mysql -d
+docker-compose up -d mysql
 ```
 
 ### Stop everything
