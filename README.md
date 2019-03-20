@@ -13,12 +13,21 @@ possible configured mounted volumes for persistence.
 Below are the various components that run and useful information about them.
 
 ### [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)
-Elasticsearch `6.5.3` running with `-Xms256m -Xmx256m` and `xpack.security.enabled=false` 
+Elasticsearch `6.5.3` running with `-Xms256m -Xmx256m` and `xpack.security.enabled=false`
 
 #### Web UI
 Kibana is running on: http://localhost:5601
 
 _It's worth considering xpack security or basic auth in production_
+
+### [Minio](https://docs.minio.io/)
+A container running as S3 compatible object store.
+
+Access key: `minio` secret key: `minio123`
+
+#### Web UI
+You can access the web interface at http://127.0.0.1:9000 using the above
+credentials. 
 
 ### [MySQL](https://www.percona.com/doc/percona-server/LATEST/index.html)
 A Percona 5.7 container with: `utf8mb4` as default, `sql_mode` a little less
@@ -79,7 +88,7 @@ docker-compose up -d mysql
 ```
 
 ### Stop everything
-To stop all components and cleanup the containers and networks: 
+To stop all components and cleanup the containers and networks:
 ```
 docker-compose down
 ```

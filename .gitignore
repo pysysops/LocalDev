@@ -1,6 +1,9 @@
 *.log
 
 # Local app data persistence
+minio/data/*
+!minio/data/.gitkeep
+
 mysql/data/*
 mysql/logs/*
 !mysql/data/.gitkeep

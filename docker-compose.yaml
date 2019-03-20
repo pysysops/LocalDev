@@ -26,6 +26,16 @@ services:
     image: kibana:6.5.3
     ports:
       - 5601:5601
+  minio:
+    image: minio/minio
+    volumes:
+      - ./minio/data:/data
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /data
   mysql:
     image: percona:5.7
     restart: always
