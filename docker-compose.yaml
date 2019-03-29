@@ -10,31 +10,36 @@ services:
       - 13306:8080
   elasticsearch:
     image: elasticsearch:6.5.3
-    volumes:
-      - ./elasticsearch/data:/usr/share/elasticsearch/data
-      - ./elasticsearch/logs:/var/log/elasticsearch
-    ports:
-      - 9200:9200
-      - 9300:9300
+    restart: always
     environment:
       network.host: 0.0.0.0
       discovery.type: single-node
       bootstrap.memory_lock: 'true'
       xpack.security.enabled: 'false'
       ES_JAVA_OPTS: -Xms256m -Xmx256m
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs:/var/log/elasticsearch
+    depends_on:
+      - kibana
   kibana:
     image: kibana:6.5.3
+    restart: always
     ports:
       - 5601:5601
   minio:
     image: minio/minio
-    volumes:
-      - ./minio/data:/data
-    ports:
-      - "9000:9000"
+    restart: always
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
+    ports:
+      - 9000:9000
+    volumes:
+      - ./minio/data:/data
     command: server /data
   mysql:
     image: percona:5.7
@@ -47,6 +52,8 @@ services:
       - ./mysql/logs:/var/log/mysql
       - ./mysql/data:/var/lib/mysql
       - ./mysql/server.cnf:/etc/my.cnf.d/server.cnf:ro
+    depends_on:
+      - adminer
   nats:
     image: nats:linux
     restart: always
@@ -54,15 +61,16 @@ services:
       - 4222:4222
       - 6222:6222
       - 8222:8222
+    depends_on:
+      - natsboard
   natsboard:
     image: urashidmalik/natsboard
+    restart: always
+    environment:
+      NATS_MONITOR_URL: http://nats:8222
     ports:
       - 18222:3000
       - 3001:3001
-    environment:
-      NATS_MONITOR_URL: http://nats:8222
-    depends_on:
-      - nats
   rabbitmq:
     image: rabbitmq:management-alpine
     restart: always
@@ -80,6 +88,8 @@ services:
     volumes:
       - ./redis/data:/data
     command: redis-server --appendonly yes
+    depends_on:
+      - redis-commander
   redis-commander:
     image: rediscommander/redis-commander:latest
     restart: always
@@ -89,6 +99,9 @@ services:
       - 16379:8081
   jaeger:
     image: jaegertracing/all-in-one:1.10
+    restart: always
+    environment:
+      COLLECTOR_ZIPKIN_HTTP_PORT: 9411
     ports:
       - 5775:5775/udp
       - 6831:6831/udp
@@ -97,5 +110,3 @@ services:
       - 16686:16686
       - 14268:14268
       - 9411:9411
-    environment:
-      COLLECTOR_ZIPKIN_HTTP_PORT: 9411
