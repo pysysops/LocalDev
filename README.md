@@ -20,6 +20,13 @@ Kibana is running on: http://localhost:5601
 
 _It's worth considering xpack security or basic auth in production_
 
+### [Jaeger](https://www.jaegertracing.io/)
+A container running Jaeger for application tracing. Ports are configured for both
+Jaeger and Zipkin collectors including http. Personally, I would always recommend
+making use of a Jaeger library and sending metrics to a UDP (stateless) collector.
+
+Web UI: http://localhost:16686
+
 ### [Minio](https://docs.minio.io/)
 A container running as S3 compatible object store.
 
@@ -27,7 +34,7 @@ Access key: `minio` secret key: `minio123`
 
 #### Web UI
 You can access the web interface at http://127.0.0.1:9000 using the above
-credentials. 
+credentials.
 
 ### [MySQL](https://www.percona.com/doc/percona-server/LATEST/index.html)
 A Percona 5.7 container with: `utf8mb4` as default, `sql_mode` a little less
