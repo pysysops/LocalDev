@@ -21,3 +21,11 @@ elasticsearch/logs/*
 
 redis/data/*
 !redis/data/.gitkeep
+
+influxdb/data/*
+!influxdb/data/.gitkeep
+
+grafana/data/*
+grafana/logs/*
+!grafana/data/.gitkeep
+!grafana/logs/.gitkeep

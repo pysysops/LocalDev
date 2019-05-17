@@ -24,6 +24,25 @@ services:
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
       - ./elasticsearch/logs:/var/log/elasticsearch
+  grafana:
+    image: grafana/grafana:6.1.6
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/logs:/var/log/grafana
+  influxdb:
+    image: influxdb:1.5-alpine
+    restart: always
+    environment:
+      INFLUXDB_DB: metrics
+      INFLUXDB_GRAPHITE_ENABLED: 'true'
+    ports:
+      - 8086:8086
+      - 2003:2003
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb
   kibana:
     image: kibana:7.0.1
     restart: always
