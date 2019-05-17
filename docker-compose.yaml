@@ -9,36 +9,45 @@ services:
     ports:
       - 13306:8080
   elasticsearch:
-    image: elasticsearch:6.7.0
+    image: elasticsearch:7.0.1
     restart: always
     environment:
       network.host: 0.0.0.0
       discovery.type: single-node
       bootstrap.memory_lock: 'true'
+      ES_JAVA_OPTS: -Xms512m -Xmx512m -Dnetworkaddress.cache.ttl=60
       xpack.security.enabled: 'false'
-      ES_JAVA_OPTS: -Xms256m -Xmx256m
+      xpack.ml.enabled: 'false'
     ports:
       - 9200:9200
       - 9300:9300
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
       - ./elasticsearch/logs:/var/log/elasticsearch
-    depends_on:
-      - kibana
   kibana:
-    build: kibana
+    image: kibana:7.0.1
     restart: always
+    environment:
+      XPACK_INFRA_ENABLED: 'false'
+      XPACK_GRAPH_ENABLED: 'false'
+      XPACK_SECURITY_ENABLED: 'false'
+      XPACK_LICENSE_MANAGEMENT_ENABLED: 'false'
+      XPACK_ROLLUP_ENABLED: 'false'
+      KIBANA_DEFAULTAPPID: 'discover'
     ports:
       - 5601:5601
-    volumes:
-      - ./kibana/logtrail.json:/usr/share/kibana/plugins/logtrail/logtrail.json:ro
+    depends_on:
+      - elasticsearch
   logstash:
-    image: logstash:6.7.0
+    image: logstash:7.0.1
     restart: always
+    environment:
+      xpack.monitoring.enabled: 'false'
     ports:
       - 12201:12201/udp
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./logstash/index-template.json:/usr/share/logstash/index-template.json:ro
     depends_on:
       - elasticsearch
   minio:
